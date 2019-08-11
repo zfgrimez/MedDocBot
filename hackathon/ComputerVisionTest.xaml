@@ -1,0 +1,386 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ComputerVisionTest" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="company_name" Type="InArgument(x:String)" />
+    <x:Property Name="mem_name" Type="OutArgument(x:String)" />
+    <x:Property Name="mem_ID" Type="OutArgument(x:String)" />
+    <x:Property Name="grp_num" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>979,2118</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ComputerVisionTest_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="21">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="ComputerVisionTest" sap:VirtualizedContainerService.HintSize="939,1998" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="newFile" />
+      <Variable x:TypeArguments="x:String" Name="member_ID" />
+      <Variable x:TypeArguments="x:String" Name="member_name" />
+      <Variable x:TypeArguments="x:String" Name="user_provider" />
+      <Variable x:TypeArguments="s:String[]" Default="[{&quot;Aetna&quot;, &quot;UnitedHealthcare&quot;}]" Name="provider_options" />
+      <Variable x:TypeArguments="x:String" Name="file_path" />
+      <Variable x:TypeArguments="x:String" Name="group_number" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="901,59" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Upload a PDF of your insurance card&quot;]" TopMost="True" />
+    <ui:SelectFile DisplayName="Select File" Filter="All files (*.*)|*.*" sap:VirtualizedContainerService.HintSize="901,22" sap2010:WorkflowViewState.IdRef="SelectFile_1" SelectedFile="[file_path]" />
+    <ui:StartProcess WorkingDirectory="{x:Null}" Arguments="[file_path]" DisplayName="Start Process" FileName="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" sap:VirtualizedContainerService.HintSize="901,87" sap2010:WorkflowViewState.IdRef="StartProcess_3" />
+    <If Condition="[company_name.Contains(&quot;Aetna&quot;)]" sap:VirtualizedContainerService.HintSize="901,1318" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <p:CVScope ContinueOnError="{x:Null}" ApiKey="Hffqb+J4bxw1AXppALgmS7+JkgoKl0ZaBIbWPmBW3aUac/ileTCWbFXcR6jkbVWg" DelayBefore="300" DisplayName="CV Screen Scope 'AVL_AVView'" sap:VirtualizedContainerService.HintSize="430,1168" sap2010:WorkflowViewState.IdRef="CVScope_4" Server="https://cv.uipath.com">
+          <p:CVScope.Body>
+            <ActivityAction x:TypeArguments="x:Object">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <p:CvGetTextWithDescriptor Descriptor="[&quot;Target: Text 'NAME' (99,289,48,14) Offset: (46,21,278,19)&quot; +&#xA;&quot;Anchor: Text '01' (100,310,22,18)&quot;]" DesignTimeScaleFactor="2" DisplayName="CV Get Text - Text" sap:VirtualizedContainerService.HintSize="400,137" sap2010:WorkflowViewState.IdRef="CvGetTextWithDescriptor_7" InformativeScreenshot="b728a01c3d208278bfaebb3a34f6275c" Result="[member_name]" TimeoutMS="30000">
+                  <p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                    <uc:CvDescriptor TargetOffset="46, 21, 278, 19">
+                      <uc:CvDescriptor.Anchors>
+                        <x:Array Type="uc:CvElementDescriptor">
+                          <uc:CvElementDescriptor DesignTimeArea="100, 310, 22, 18" ElementType="Text" Text="01" />
+                        </x:Array>
+                      </uc:CvDescriptor.Anchors>
+                      <uc:CvDescriptor.Target>
+                        <uc:CvElementDescriptor DesignTimeArea="99, 289, 48, 14" ElementType="Text" Text="NAME" />
+                      </uc:CvDescriptor.Target>
+                    </uc:CvDescriptor>
+                  </p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                </p:CvGetTextWithDescriptor>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="400,93" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[member_name]" />
+                <p:CvGetTextWithDescriptor Descriptor="[&quot;Target: Text 'ID' (100,251,43,30) Offset: (59,-5,338,39)&quot;]" DesignTimeScaleFactor="2" DisplayName="CV Get Text - Text" sap:VirtualizedContainerService.HintSize="400,137" sap2010:WorkflowViewState.IdRef="CvGetTextWithDescriptor_8" InformativeScreenshot="2edf18d1b9582f2750ae08f817282229" Result="[member_ID]" TimeoutMS="30000">
+                  <p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                    <uc:CvDescriptor TargetOffset="59, -5, 338, 39">
+                      <uc:CvDescriptor.Target>
+                        <uc:CvElementDescriptor DesignTimeArea="100, 251, 43, 30" ElementType="Text" Text="ID" />
+                      </uc:CvDescriptor.Target>
+                    </uc:CvDescriptor>
+                  </p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                </p:CvGetTextWithDescriptor>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="400,93" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[member_ID]" />
+                <p:CvGetTextWithDescriptor Descriptor="[&quot;Target: AnyText (189,181,234,18)&quot; +&#xD;&#xA;&quot;Anchor: Text '(80840)' (207,211,94,23)&quot; +&#xD;&#xA;&quot;Anchor: Text 'GRP' (100,181,40,18)&quot; +&#xD;&#xA;&quot;Anchor: Text 'aetna@' (95,39,274,70)&quot;]" DesignTimeScaleFactor="2" DisplayName="CV Get Text - Any Text" sap:VirtualizedContainerService.HintSize="400,137" sap2010:WorkflowViewState.IdRef="CvGetTextWithDescriptor_9" InformativeScreenshot="907b819d0384fb30ff0d9a4145657ea0" Result="[group_number]" TimeoutMS="30000">
+                  <p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                    <uc:CvDescriptor>
+                      <uc:CvDescriptor.Anchors>
+                        <x:Array Type="uc:CvElementDescriptor">
+                          <uc:CvElementDescriptor DesignTimeArea="207, 211, 94, 23" ElementType="Text" Text="(80840)" />
+                          <uc:CvElementDescriptor DesignTimeArea="100, 181, 40, 18" ElementType="Text" Text="GRP" />
+                          <uc:CvElementDescriptor DesignTimeArea="95, 39, 274, 70" ElementType="Text" Text="aetna@" />
+                        </x:Array>
+                      </uc:CvDescriptor.Anchors>
+                      <uc:CvDescriptor.Target>
+                        <uc:CvElementDescriptor DesignTimeArea="189, 181, 234, 18" ElementType="AnyText" />
+                      </uc:CvDescriptor.Target>
+                    </uc:CvDescriptor>
+                  </p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                </p:CvGetTextWithDescriptor>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="400,93" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[group_number]" />
+              </Sequence>
+            </ActivityAction>
+          </p:CVScope.Body>
+          <p:CVScope.DesignTimeCache>
+            <uc:CVCache InformativeScreenshot="2b8fed5cb546d8c0894c36a143600465" LogicalPosition="126, 249" OcrText="aetna@&#xA;600 PLAN&#xA;GRP 865237-012-00105&#xA;Issuer (80840) 9140860054&#xA;ID W1883 87048&#xA;NAME First Health&#xA;Choice POS 11&#xA;01&#xA;02&#xA;03&#xA;04&#xA;05 JACQUELINE H WILSON&#xA;CORNEL R WILSON&#xA;JESSE R WILSON&#xA;MADELEINE F WILSON&#xA;MARSHALL W WILSON UC 50.00" Position="126, 249" ScaleFactor="2" ScreenshotGuid="46160b61-e836-4008-94d7-4509a4cedbd0" ServerVersion="1">
+              <uc:CVCache.CvUiElements>
+                <scg:List x:TypeArguments="uc:CvElementInfo" Capacity="16">
+                  <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="901, 24, 7, 7" Score="1" />
+                  <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="651, 449, 13, 20" Score="1" />
+                  <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="900, 23, 8, 8" Score="1" />
+                  <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="459, 417, 9, 9" Score="1" />
+                  <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="688, 194, 46, 23" Score="1" />
+                  <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="865, 130, 16, 14" Score="1" />
+                  <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="1055, 586, 8, 8" Score="1" />
+                  <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="528, 539, 9, 9" Score="1" />
+                  <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="1055, 586, 7, 7" Score="1" />
+                  <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="459, 417, 9, 9" Score="1" />
+                </scg:List>
+              </uc:CVCache.CvUiElements>
+              <uc:CVCache.OcrTexts>
+                <scg:List x:TypeArguments="uc:OcrTextInfo" Capacity="64">
+                  <uc:OcrTextInfo Region="95, 39, 274, 70" Text="aetna@" />
+                  <uc:OcrTextInfo Region="100, 131, 34, 15" Text="600" />
+                  <uc:OcrTextInfo Region="150, 130, 47, 15" Text="PLAN" />
+                  <uc:OcrTextInfo Region="100, 181, 40, 18" Text="GRP" />
+                  <uc:OcrTextInfo Region="189, 181, 234, 18" Text="865237-012-00105" />
+                  <uc:OcrTextInfo Region="101, 212, 83, 17" Text="Issuer" />
+                  <uc:OcrTextInfo Region="207, 211, 94, 23" Text="(80840)" />
+                  <uc:OcrTextInfo Region="323, 211, 144, 18" Text="9140860054" />
+                  <uc:OcrTextInfo Region="100, 251, 43, 30" Text="ID" />
+                  <uc:OcrTextInfo Region="202, 251, 128, 30" Text="W1883" />
+                  <uc:OcrTextInfo Region="366, 251, 125, 30" Text="87048" />
+                  <uc:OcrTextInfo Region="99, 289, 48, 14" Text="NAME" />
+                  <uc:OcrTextInfo Region="543, 57, 47, 20" Text="First" />
+                  <uc:OcrTextInfo Region="594, 56, 75, 21" Text="Health" />
+                  <uc:OcrTextInfo Region="588, 200, 86, 18" Text="Choice" />
+                  <uc:OcrTextInfo Region="692, 200, 41, 18" Text="POS" />
+                  <uc:OcrTextInfo Region="753, 200, 23, 18" Text="11" />
+                  <uc:OcrTextInfo Region="100, 310, 22, 18" Text="01" />
+                  <uc:OcrTextInfo Region="99, 333, 25, 18" Text="02" />
+                  <uc:OcrTextInfo Region="99, 355, 25, 17" Text="03" />
+                  <uc:OcrTextInfo Region="99, 378, 25, 17" Text="04" />
+                  <uc:OcrTextInfo Region="99, 400, 25, 17" Text="05" />
+                  <uc:OcrTextInfo Region="143, 310, 147, 19" Text="JACQUELINE" />
+                  <uc:OcrTextInfo Region="308, 310, 10, 18" Text="H" />
+                  <uc:OcrTextInfo Region="336, 310, 87, 18" Text="WILSON" />
+                  <uc:OcrTextInfo Region="144, 333, 85, 18" Text="CORNEL" />
+                  <uc:OcrTextInfo Region="248, 333, 11, 18" Text="R" />
+                  <uc:OcrTextInfo Region="276, 333, 88, 18" Text="WILSON" />
+                  <uc:OcrTextInfo Region="143, 355, 70, 17" Text="JESSE" />
+                  <uc:OcrTextInfo Region="233, 355, 11, 17" Text="R" />
+                  <uc:OcrTextInfo Region="261, 355, 87, 17" Text="WILSON" />
+                  <uc:OcrTextInfo Region="143, 378, 130, 17" Text="MADELEINE" />
+                  <uc:OcrTextInfo Region="293, 377, 10, 18" Text="F" />
+                  <uc:OcrTextInfo Region="321, 377, 87, 18" Text="WILSON" />
+                  <uc:OcrTextInfo Region="143, 399, 114, 18" Text="MARSHALL" />
+                  <uc:OcrTextInfo Region="276, 399, 14, 18" Text="W" />
+                  <uc:OcrTextInfo Region="306, 399, 87, 18" Text="WILSON" />
+                  <uc:OcrTextInfo Region="589, 487, 23, 15" Text="UC" />
+                  <uc:OcrTextInfo Region="705, 487, 60, 15" Text="50.00" />
+                </scg:List>
+              </uc:CVCache.OcrTexts>
+            </uc:CVCache>
+          </p:CVScope.DesignTimeCache>
+          <p:CVScope.OCREngine>
+            <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+              <ActivityFunc.Argument>
+                <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+              </ActivityFunc.Argument>
+              <ui:MicrosoftOCR FilterRegion="{x:Null}" Output="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" ExtractWords="True" sap:VirtualizedContainerService.HintSize="216,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_2" Image="[Image]" Language="en" Profile="Screen" Scale="1" />
+            </ActivityFunc>
+          </p:CVScope.OCREngine>
+          <p:CVScope.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="63cba1a0f21d4b400d33a2af429576c7" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*.pdf - Adobe Acrobat Reader DC' /&gt;&lt;wnd aaname='Document Pane' cls='AVL_AVView' title='AVScrolledPageView' /&gt;&lt;wnd aaname='Alert: Empty document' cls='AVL_AVView' title='AVPageView' /&gt;" WaitForReady="INTERACTIVE" />
+          </p:CVScope.Target>
+        </p:CVScope>
+      </If.Then>
+      <If.Else>
+        <p:CVScope ContinueOnError="{x:Null}" ApiKey="Hffqb+J4bxw1AXppALgmS7+JkgoKl0ZaBIbWPmBW3aUac/ileTCWbFXcR6jkbVWg" DelayBefore="300" DisplayName="CV Screen Scope 'AVL_AVView'" sap:VirtualizedContainerService.HintSize="430,1168" sap2010:WorkflowViewState.IdRef="CVScope_3" Server="https://cv.uipath.com">
+          <p:CVScope.Body>
+            <ActivityAction x:TypeArguments="x:Object">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="variable1" />
+                </Sequence.Variables>
+                <p:CvGetTextWithDescriptor Descriptor="[&quot;Target: Text 'Mernber:' (172,231,87,17) Offset: (0,23,194,21)&quot; +&#xA;&quot;Anchor: Text 'Dependents' (172,278,113,19)&quot;]" DesignTimeScaleFactor="2" DisplayName="CV Get Text - Text" sap:VirtualizedContainerService.HintSize="400,137" sap2010:WorkflowViewState.IdRef="CvGetTextWithDescriptor_5" InformativeScreenshot="36dc6888806648562a1700de5c0cfb85" Result="[member_name]" TimeoutMS="30000">
+                  <p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                    <uc:CvDescriptor TargetOffset="0, 23, 194, 21">
+                      <uc:CvDescriptor.Anchors>
+                        <x:Array Type="uc:CvElementDescriptor">
+                          <uc:CvElementDescriptor DesignTimeArea="172, 278, 113, 19" ElementType="Text" Text="Dependents" />
+                        </x:Array>
+                      </uc:CvDescriptor.Anchors>
+                      <uc:CvDescriptor.Target>
+                        <uc:CvElementDescriptor DesignTimeArea="172, 231, 87, 17" ElementType="Text" Text="Mernber:" />
+                      </uc:CvDescriptor.Target>
+                    </uc:CvDescriptor>
+                  </p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                </p:CvGetTextWithDescriptor>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="400,93" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[member_name]" />
+                <p:CvGetTextWithDescriptor Descriptor="[&quot;Target: AnyText (378,184,152,27)&quot; +&#xA;&quot;Anchor: Text 'Health Plan (87734)' (172,149,204,21)&quot; +&#xA;&quot;Anchor: Text 'Member' (172,195,82,17)&quot;]" DesignTimeScaleFactor="2" DisplayName="CV Get Text - Any Text" sap:VirtualizedContainerService.HintSize="400,137" sap2010:WorkflowViewState.IdRef="CvGetTextWithDescriptor_6" InformativeScreenshot="6bcf0f70c624a638273655edc326aba5" Result="[member_ID]" TimeoutMS="30000">
+                  <p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                    <uc:CvDescriptor>
+                      <uc:CvDescriptor.Anchors>
+                        <x:Array Type="uc:CvElementDescriptor">
+                          <uc:CvElementDescriptor DesignTimeArea="172, 149, 204, 21" ElementType="Text" Text="Health Plan (87734)" />
+                          <uc:CvElementDescriptor DesignTimeArea="172, 195, 82, 17" ElementType="Text" Text="Member" />
+                        </x:Array>
+                      </uc:CvDescriptor.Anchors>
+                      <uc:CvDescriptor.Target>
+                        <uc:CvElementDescriptor DesignTimeArea="378, 184, 152, 27" ElementType="AnyText" />
+                      </uc:CvDescriptor.Target>
+                    </uc:CvDescriptor>
+                  </p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                </p:CvGetTextWithDescriptor>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="400,93" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[member_ID]" />
+                <p:CvGetTextWithDescriptor Descriptor="[&quot;Target: AnyText (868,183,98,27)&quot; +&#xD;&#xA;&quot;Anchor: Text 'Group Number:' (630,197,177,17)&quot; +&#xD;&#xA;&quot;Anchor: Text 'Google, Inc.' (585,238,115,19)&quot;]" DesignTimeScaleFactor="2" DisplayName="CV Get Text - Any Text" sap:VirtualizedContainerService.HintSize="400,137" sap2010:WorkflowViewState.IdRef="CvGetTextWithDescriptor_10" InformativeScreenshot="e8d6308e92fd7d17d8a489649e4b9a87" Result="[group_number]" TimeoutMS="30000">
+                  <p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                    <uc:CvDescriptor>
+                      <uc:CvDescriptor.Anchors>
+                        <x:Array Type="uc:CvElementDescriptor">
+                          <uc:CvElementDescriptor DesignTimeArea="630, 197, 177, 17" ElementType="Text" Text="Group Number:" />
+                          <uc:CvElementDescriptor DesignTimeArea="585, 238, 115, 19" ElementType="Text" Text="Google, Inc." />
+                        </x:Array>
+                      </uc:CvDescriptor.Anchors>
+                      <uc:CvDescriptor.Target>
+                        <uc:CvElementDescriptor DesignTimeArea="868, 183, 98, 27" ElementType="AnyText" />
+                      </uc:CvDescriptor.Target>
+                    </uc:CvDescriptor>
+                  </p:CvGetTextWithDescriptor.DesignTimeDescriptor>
+                </p:CvGetTextWithDescriptor>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="400,93" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[group_number]" />
+              </Sequence>
+            </ActivityAction>
+          </p:CVScope.Body>
+          <p:CVScope.DesignTimeCache>
+            <uc:CVCache InformativeScreenshot="cf357923f4b1469918b8b40714b9e3ac" LogicalPosition="126, 249" OcrText="J llnitedHealthcare&#xA;Health Plan (87734) 991-65521-27&#xA;Member&#xA;Mernber:&#xA;ROBERT BELCHER&#xA;Dependents&#xA;LINDA BELCHER&#xA;LOUISE BELCHER&#xA;GENE BELCHER&#xA;TINA BELCHER 986777214 Group Number:&#xA;Google, Inc.&#xA;Tiered Benefits 562239&#xA;Copays:&#xA;Office: $20&#xA;UrgCare: $75 90023 10/03/2018&#xA;OPTUMRx&#xA;666018&#xA;Rx Bin:&#xA;Rx PCN: 0099&#xA;Rx UHEALTH&#xA;$10/$35/$60&#xA;Copay Tiers:&#xA;spec: $40 Office Age&lt;19: $0&#xA;Tier I SpecOV: $20&#xA;UnitedHealthcare Choice Plus&#xA;Underwritten by UnitedHealthcare Insurance Company" Position="126, 249" ScaleFactor="2" ScreenshotGuid="ce87a90e-5ed0-4421-b61d-e26418cba900" ServerVersion="1">
+              <uc:CVCache.CvUiElements>
+                <scg:List x:TypeArguments="uc:CvElementInfo" Capacity="4">
+                  <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="659, 313, 18, 20" Score="1" />
+                  <uc:CvElementInfo Category="RadioButton" Confidence="Runtime" Region="660, 313, 17, 20" Score="1" />
+                </scg:List>
+              </uc:CVCache.CvUiElements>
+              <uc:CVCache.OcrTexts>
+                <scg:List x:TypeArguments="uc:OcrTextInfo" Capacity="64">
+                  <uc:OcrTextInfo Region="183, 62, 15, 53" Text="J" />
+                  <uc:OcrTextInfo Region="231, 82, 305, 35" Text="llnitedHealthcare" />
+                  <uc:OcrTextInfo Region="172, 149, 63, 17" Text="Health" />
+                  <uc:OcrTextInfo Region="245, 149, 43, 17" Text="Plan" />
+                  <uc:OcrTextInfo Region="298, 149, 78, 21" Text="(87734)" />
+                  <uc:OcrTextInfo Region="422, 142, 190, 27" Text="991-65521-27" />
+                  <uc:OcrTextInfo Region="172, 195, 82, 17" Text="Member" />
+                  <uc:OcrTextInfo Region="172, 231, 87, 17" Text="Mernber:" />
+                  <uc:OcrTextInfo Region="179, 256, 83, 18" Text="ROBERT" />
+                  <uc:OcrTextInfo Region="270, 256, 95, 18" Text="BELCHER" />
+                  <uc:OcrTextInfo Region="172, 278, 113, 19" Text="Dependents" />
+                  <uc:OcrTextInfo Region="180, 302, 59, 18" Text="LINDA" />
+                  <uc:OcrTextInfo Region="245, 302, 95, 19" Text="BELCHER" />
+                  <uc:OcrTextInfo Region="180, 330, 73, 19" Text="LOUISE" />
+                  <uc:OcrTextInfo Region="262, 330, 95, 19" Text="BELCHER" />
+                  <uc:OcrTextInfo Region="180, 359, 56, 19" Text="GENE" />
+                  <uc:OcrTextInfo Region="244, 359, 95, 18" Text="BELCHER" />
+                  <uc:OcrTextInfo Region="179, 388, 46, 18" Text="TINA" />
+                  <uc:OcrTextInfo Region="232, 388, 95, 18" Text="BELCHER" />
+                  <uc:OcrTextInfo Region="378, 184, 152, 27" Text="986777214" />
+                  <uc:OcrTextInfo Region="630, 197, 68, 23" Text="Group" />
+                  <uc:OcrTextInfo Region="709, 196, 98, 18" Text="Number:" />
+                  <uc:OcrTextInfo Region="585, 238, 74, 25" Text="Google," />
+                  <uc:OcrTextInfo Region="669, 238, 31, 19" Text="Inc." />
+                  <uc:OcrTextInfo Region="583, 270, 56, 19" Text="Tiered" />
+                  <uc:OcrTextInfo Region="647, 270, 71, 18" Text="Benefits" />
+                  <uc:OcrTextInfo Region="868, 183, 98, 27" Text="562239" />
+                  <uc:OcrTextInfo Region="171, 455, 57, 15" Text="Copays:" />
+                  <uc:OcrTextInfo Region="171, 473, 53, 18" Text="Office:" />
+                  <uc:OcrTextInfo Region="231, 472, 30, 22" Text="$20" />
+                  <uc:OcrTextInfo Region="171, 495, 75, 23" Text="UrgCare:" />
+                  <uc:OcrTextInfo Region="253, 494, 31, 22" Text="$75" />
+                  <uc:OcrTextInfo Region="693, 315, 61, 20" Text="90023" />
+                  <uc:OcrTextInfo Region="867, 314, 113, 21" Text="10/03/2018" />
+                  <uc:OcrTextInfo Region="750, 369, 107, 16" Text="OPTUMRx" />
+                  <uc:OcrTextInfo Region="818, 391, 76, 21" Text="666018" />
+                  <uc:OcrTextInfo Region="712, 395, 26, 16" Text="Rx" />
+                  <uc:OcrTextInfo Region="747, 395, 36, 17" Text="Bin:" />
+                  <uc:OcrTextInfo Region="712, 420, 27, 17" Text="Rx" />
+                  <uc:OcrTextInfo Region="747, 420, 52, 17" Text="PCN:" />
+                  <uc:OcrTextInfo Region="826, 416, 49, 21" Text="0099" />
+                  <uc:OcrTextInfo Region="713, 446, 26, 17" Text="Rx" />
+                  <uc:OcrTextInfo Region="813, 442, 129, 21" Text="UHEALTH" />
+                  <uc:OcrTextInfo Region="842, 474, 75, 16" Text="$10/$35/$60" />
+                  <uc:OcrTextInfo Region="712, 475, 36, 17" Text="Copay" />
+                  <uc:OcrTextInfo Region="751, 476, 31, 13" Text="Tiers:" />
+                  <uc:OcrTextInfo Region="325, 497, 47, 23" Text="spec:" />
+                  <uc:OcrTextInfo Region="380, 495, 30, 22" Text="$40" />
+                  <uc:OcrTextInfo Region="468, 474, 48, 18" Text="Office" />
+                  <uc:OcrTextInfo Region="522, 474, 70, 23" Text="Age&lt;19:" />
+                  <uc:OcrTextInfo Region="600, 472, 20, 22" Text="$0" />
+                  <uc:OcrTextInfo Region="467, 497, 33, 18" Text="Tier" />
+                  <uc:OcrTextInfo Region="507, 497, 6, 18" Text="I" />
+                  <uc:OcrTextInfo Region="522, 496, 74, 23" Text="SpecOV:" />
+                  <uc:OcrTextInfo Region="604, 495, 30, 22" Text="$20" />
+                  <uc:OcrTextInfo Region="603, 519, 218, 21" Text="UnitedHealthcare" />
+                  <uc:OcrTextInfo Region="831, 518, 86, 21" Text="Choice" />
+                  <uc:OcrTextInfo Region="928, 517, 53, 21" Text="Plus" />
+                  <uc:OcrTextInfo Region="463, 544, 120, 16" Text="Underwritten" />
+                  <uc:OcrTextInfo Region="591, 544, 21, 20" Text="by" />
+                  <uc:OcrTextInfo Region="620, 544, 164, 16" Text="UnitedHealthcare" />
+                  <uc:OcrTextInfo Region="792, 544, 92, 16" Text="Insurance" />
+                  <uc:OcrTextInfo Region="891, 543, 90, 19" Text="Company" />
+                </scg:List>
+              </uc:CVCache.OcrTexts>
+            </uc:CVCache>
+          </p:CVScope.DesignTimeCache>
+          <p:CVScope.OCREngine>
+            <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+              <ActivityFunc.Argument>
+                <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+              </ActivityFunc.Argument>
+              <ui:MicrosoftOCR FilterRegion="{x:Null}" Output="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" ExtractWords="True" sap:VirtualizedContainerService.HintSize="216,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_2" Image="[Image]" Language="en" Profile="Screen" Scale="1" />
+            </ActivityFunc>
+          </p:CVScope.OCREngine>
+          <p:CVScope.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e6a597a3aceb64119c9539a7baaad802" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*.pdf - Adobe Acrobat Reader DC' /&gt;&lt;wnd aaname='Document Pane' cls='AVL_AVView' title='AVScrolledPageView' /&gt;&lt;wnd aaname='Alert: Empty document' cls='AVL_AVView' title='AVPageView' /&gt;" WaitForReady="INTERACTIVE" />
+          </p:CVScope.Target>
+        </p:CVScope>
+      </If.Else>
+    </If>
+    <Assign sap:VirtualizedContainerService.HintSize="901,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[mem_name]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[member_name]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="901,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[mem_ID]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[member_ID]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="901,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[grp_num]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[group_number]</InArgument>
+      </Assign.Value>
+    </Assign>
+  </Sequence>
+</Activity>

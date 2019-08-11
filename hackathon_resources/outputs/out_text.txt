@@ -1,0 +1,27 @@
+UnitedHe31thcareO
+Health Plan (87734) 991-65521-27
+Member ID:
+Member:
+ROBERT BELCHER
+Dependents
+LINDA BELCHER
+LOUISE BELCHER
+GENE BELCHER
+TINA BELCHER 986777214 Group Number:
+Google, Inc.
+Tiered Benefits 562239
+Payer ID 90023 10/03/2018
+OPTUMRx»•
+666018
+Rx Bin:
+Rx PCN: 0099
+Copays:
+Office: $20
+UrgCare: $75
+DOI-046 Rx UHEALTH
+$101$351$60
+Copay Tiers:
+spec: $40 Office Age<19: $0
+Tier I SpecOV: $20
+UnitedHealthcare Choice Plus
+Underwritten by UnitedHealthcare Insurance Company
